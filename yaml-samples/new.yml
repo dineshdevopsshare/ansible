@@ -1,0 +1,16 @@
+-
+   name: New file for learning
+   hosts: localhost
+   tasks:
+     - name: Execute date command
+       command: date
+     - name: install httpd service
+       yum:
+         name: httpd
+         state: present
+       become: true
+     - name: start new web server
+       service: 
+         name: httpd
+         state: started
+       become: true

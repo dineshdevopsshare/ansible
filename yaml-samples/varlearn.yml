@@ -1,0 +1,10 @@
+-
+   name: Adding DNS entry
+   hosts: rahul
+   vars: 
+     dns_server: 10.32.5.202
+   tasks:
+     - lineinfile:
+         path: /etc/resolv.conf
+         line: 'nameserver {{dns_server}}'
+   become: yes

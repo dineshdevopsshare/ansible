@@ -1,0 +1,10 @@
+-
+   name: Date command
+   hosts: rahul
+   tasks:
+     - name: Execute date command
+       command: date
+     - name: checking hosts
+       command: cat resolv.conf chdir=/etc
+     - name: Display resolve conf
+       command: mkdir /tmp/test creates=/folder

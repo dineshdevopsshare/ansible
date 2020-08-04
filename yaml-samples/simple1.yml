@@ -1,0 +1,8 @@
+-
+   name: Exercise for practicing copy module
+   hosts: rahul1
+   tasks:
+     - name: check for dir exist
+       command: mkdir /tmp/testing creates=/folder
+     - name: copy module
+       copy: src=/home/ansible/simple1.yml dest=/tmp/testing

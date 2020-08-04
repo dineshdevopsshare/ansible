@@ -1,0 +1,16 @@
+-
+   name: start the nginx
+   hosts: rahul
+   tasks:
+      - name: install nginx
+        package:
+          name: nginx
+          state: present
+        notify:
+            start nginx
+   handlers:
+     - name: start nginx
+       service: 
+         name: nginx
+         state: started
+   become: yes

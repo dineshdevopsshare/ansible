@@ -1,0 +1,6 @@
+-
+   name: Execute few commands to validate yaml file
+   hosts: rahul
+   tasks: 
+     - name: execute date command
+       command: date

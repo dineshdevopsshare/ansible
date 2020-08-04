@@ -1,0 +1,9 @@
+-
+   name: install nginx on remote server
+   hosts: rahul
+   tasks:
+      - name: install nginx
+        yum:
+           name: nginx
+           state: present
+   become: yes
