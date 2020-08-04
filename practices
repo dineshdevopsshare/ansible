@@ -1,0 +1,63 @@
+Day 1:
+#yum install python3
+#python -V
+#alternatives --set python /usr/bin/python3
+#python -V
+#useradd ansible ;  echo "Cloud@123" | passwd --stdin ansible
+#vi /etc/sudoers.d/90-cloud-init-users
+#ansible ALL=(ALL) NOPASSWD:ALL
+#su - ansible
+#ssh-keygen
+#sudo ls /root
+#vi /etc/ssh/sshd_config
+#service sshd restart
+#ssh-copy-id ansible@18.188.38.54
+
+Day 2:
+#pip3 install ansible --user
+##Alternate way installing of ansible:
+#dnf -y install https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm
+##Troubleshooting command:
+##pip3 uninstall ansible -> to remove pip installed package
+##yum clean all -> to clear cache content in repository
+##rpm -qa | grep -i ansible -> to check the rpm package
+##rpm -e ansible-2.9.10-1.el8.noarch -> to remove unwanted package
+##yum install ansible -> installing ansible
+#ansible --version
+#chown -R ansible:ansible /etc/ansible/ -> to grant permission as ansible user
+#ansible 18.188.38.54 -m ping
+#ansible 18.188.38.54 -m ping
+#ansible web -m ping
+#ansible testing -m ping -i inventory.txt
+##https://kodekloud.com/p/ansible-practice-test/?scenario=questions_ansible_inventory -> inventory practise
+#ansible rahul -m "command" -a "sudo yum install wget -y" -> modules & ad-hoc
+## ansible ad-hoc commands:
+#ansible web -a "/sbin/reboot" -f 12 -u <username>
+#ansible web -m file -a "dest='/tmp/testing/1.txt' state='absent'" <delete a remote file>
+#ansible web -m command -a "sudo yum install httpd -y" <install httpd>
+#ansible web -m command -a "sudo yum remove httpd -y"
+##YAML - https://kodekloud.com/p/ansible-practice-test/?scenario=questions_yaml
+
+Day 3:
+##Modules
+# script module: https://docs.ansible.com/ansible/latest/modules/script_module.html
+# service module: https://docs.ansible.com/ansible/latest/modules/service_module.html	
+# lineinfile module: https://docs.ansible.com/ansible/latest/modules/lineinfile_module.html
+# user modules: https://docs.ansible.com/ansible/latest/modules/user_module.html
+##plakbooks: https://kodekloud.com/p/ansible-practice-test/?scenario=questions_ansible_playbook
+## practices: https://kodekloud.com/p/ansible-practice-test/?scenario=questions_ansible_modules
+
+
+Day 4:
+## variables: https://kodekloud.com/p/ansible-practice-test/?scenario=questions_ansible_variables
+## Loops: https://kodekloud.com/p/ansible-practice-test/?scenario=questions_ansible_loops
+## conditionals: https://cognizant.udemy.com/course/learn-ansible/learn/lecture/15898950#overview
+# https://galaxy.ansible.com/ - > ansible galaxy
+## Example for ansible galaxy: ansible-galaxy collection install ataha.linux_patching
+#ansible-galaxy init mysql
+#ansible-galaxy search mysql
+#ansible-galaxy install geerlingguy.mysql (using roles)
+#ansible-galaxy list
+#ansible-config dump | grep ROLE (TO check role path)
+#ansible-galaxy install geerlingguy.mysql -p ./roles (To config in the current directory with roles)
+## http://www.yamllint.com/ -> practicing yaml
