@@ -1,0 +1,198 @@
+Dependancies for Ansible in Centos 6:
+Controlling machine:
+yum search epel-release
+yum info epel-release
+yum install epel-release
+
+Packages skipped because of dependency problems:
+    ansible-2.6.20-1.el6.noarch from epel
+    python-crypto2.6-2.6.1-2.el6.x86_64 from epel
+    python-httplib2-0.7.7-1.el6.noarch from epel
+    python-jinja2-26-2.6-3.el6.noarch from epel
+    python-keyczar-0.71c-1.el6.noarch from epel
+    sshpass-1.06-1.el6.x86_64 from epel
+[root@dn1upsetsapp29 ~]# rpm -ivh ansible-2.6.20-1.el6.noarch.rpm
+        PyYAML is needed by ansible-2.6.20-1.el6.noarch
+        python-crypto is needed by ansible-2.6.20-1.el6.noarch
+        python-crypto2.6 is needed by ansible-2.6.20-1.el6.noarch
+        python-httplib2 is needed by ansible-2.6.20-1.el6.noarch
+        python-jinja2-26 is needed by ansible-2.6.20-1.el6.noarch
+        python-keyczar is needed by ansible-2.6.20-1.el6.noarch
+        python-paramiko is needed by ansible-2.6.20-1.el6.noarch
+        python-setuptools is needed by ansible-2.6.20-1.el6.noarch
+        sshpass is needed by ansible-2.6.20-1.el6.noarch
+
+https://centos.pkgs.org/6/repoforge-i386/ansible-0.6-1.el6.rf.noarch.rpm.html
+###################################################################################################################################################################
+Working with ansible:
+
+Important paths:
+/etc/ansible
+/etc/ansible/hosts
+/etc/ansible/roles
+/etc/ansible/ansible.cfg
+
+Set this up in both Master and client
+#useradd -d /home/ansible -m ansible
+#passwd ansible (i set Cloud@2020)
+##need to set password never expires, validate it in "chage -l"
+Setup ssh keys in master:
+#ssh-keygen -t rsa
+#cat /home/ansible/.ssh/id_rsa.
+#chown -R ansible:ansible /etc/ansible
+Setting up keys in client:
+#su - ansible
+#mkdir .ssh
+#chmod 700 .ssh
+#chown -R ansible:ansible .ssh
+#cd .ssh
+#vi authorized_keys
+#chmod 600 authorized_keys
+
+Accessing remote server from master server: 
+Inventory file:
+#vi /etc/ansible/hosts
+[appgroup]
+appserver
+
+[dbgroup]
+db server
+
+Configuration file:
+#/etc/ansible/ansible.cfg
+
+Ansible works on modules basically written on python and yaml
+##To list all available module:
+#ansible-doc -l | grep more
+##To check about specific module:
+#ansible-doc -s yum 
+
+Running ansible command:
+##ansible <appgroup> -m <modulename>
+#ansible appserver -m ping
+#ansible all -m ping
+#ansible all -m ping -o (output in single line)
+#ansible all -m shell -a "uname -r;df -h"
+#ansible all -m shell -a "uname -r;df -h" -v (verbose)
+#ansible appgroup -m yum -a "name=httpd state=present" -s
+#ansible appgroup -m service -a "name=httpd state=started" -s ###-s = sudo
+<check: changed = false>
+#ansible all -m yum -a "name=nmap state=present" -s
+#ansible all -m copy -a "src=/tmp/file1 dest=/tmp/file1" -s
+#ansible all -m yum -a "name=libselinux-python state=present" -s ###file module to set permissions
+
+Ansible client users:
+#vi /etc/sudoers
+ansible ALL=NOPASSWD: ALL
+
+https://www.youtube.com/watch?v=QFovsdxjv0Q
+
+#################################################################################################################################################################
+ssh-copy-id -i ansible@10.32.5.20
+
+10.34.18.39 
+
+passwordless authentication set:
+https://medium.com/@khandelwal12nidhi/setup-ssh-key-and-initial-user-using-ansible-playbook-61eabbb0dba4
+https://www.snel.com/support/how-to-install-ansible-on-centos-7/
+https://www.digitalocean.com/community/tutorials/how-to-set-up-ssh-keys-on-centos-8
+
+how to disable ssh authentication to users:
+https://serverfault.com/questions/285800/how-to-disable-ssh-login-with-password-for-some-users
+
+atom.io installer:
+https://flight-manual.atom.io/hacking-atom/sections/hacking-on-atom-core/#platform-windows
+#################################################################################################################################################################
+Cogynizant ansible meeting:
+
+ssh-keygen
+ssh-copy-id hostname
+ssh <nodename>
+config file (environmental variable)
+ansible.cfg
+~/.ansible.cfg
+/etc/ansible/ansible.cfg
+ansible-config
+facts:
+ansible all -m setup
+ansible-lint = code review command
+-k password
+template - to copy from controller to node
+src
+dest
+ansible-doc -l
+ansible-doc yum
+creating a role inventory:
+ansible-galaxy -h 
+ansible-galaxy init <role_name>
+
+Use ansible vault for security
+galaxy.ansible.com
+katacoda.com - 
+#################################################################################################################################################################
+https://www.tutorialspoint.com/ansible/ansible_yaml_basics.htm
+ppt: https://nsrc.org/workshops/2013/nsrc-ubuntunet-trainers/raw-attachment/wiki/Agenda/intro-ansible.pdf
+
+
+
+o Control Machine Requirements
+o Managed Node Requirements
+ Inventory
+o Hosts and Groups
+o Host Variables
+o Group Variables
+ Learn various ansible Modules
+ How to use adhoc commands
+o Parallelism and Shell Commands
+o File Transfer
+o Managing Packages
+o Users and Groups
+o Deploying From Source Control
+o Managing Services
+
+ Introduction to YAML script
+ Playbook
+o About Playbooks
+o Playbook Language Example – YAML
+o How to Write Playbooks
+o Tasks in Playbooks
+o Understanding about various tasks in playbook
+o Introduction to Handlers and variables
+o Learn about using handlers, variables in the playbook
+o Become (Privilege Escalation)
+
+ Roles
+o Role Directory Structure
+o Using Roles
+o Role Duplication and Execution
+o Role Default Variables
+o Role Dependencies
+o Role Search Path
+o Ansible Galaxy
+
+ Including and Importing
+o Includes vs. Imports
+o Importing Playbooks
+o Including and Importing Task Files
+o Including and Importing Roles
+
+ Writing a playbook to install and configure webservers and deploy an application
+ How to create Ansible Role and use it
+ Using an ansible role in playbook
+ How to use Ansible Galaxy to download roles.
+ Example – Install and use Jenkins roles from ansible galaxy
+
+
+
+yum install python3
+
+Ansible quiz:
+https://kodekloud.com/p/ansible-practice-test/?scenario=questions_ansible_inventory
+
+ansible cheat sheet:
+https://intellipaat.com/blog/tutorial/devops-tutorial/ansible-basic-cheat-sheet/
+
+ansible:
+roles - https://www.guru99.com/ansible-tutorial.html
+
+handlers: https://blog.knoldus.com/introduction-with-handlers-in-ansible/
